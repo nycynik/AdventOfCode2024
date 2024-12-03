@@ -6,7 +6,6 @@ class Day01 extends GenericDay {
   @override
   List<List<int>> parseInput() {
     var locations = input.getPerLine();
-    print(locations.length);
 
     List<int> left = [];
     List<int> right = [];

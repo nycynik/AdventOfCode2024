@@ -65,4 +65,26 @@ class InputUtil {
   List<String> getBy(String pattern) {
     return _inputAsString.split(pattern);
   }
+
+  // Splits into list of ints
+  List<List<int>> getPerLineAsInts() {
+    return _inputAsList.map((line) {
+      return line
+          .trim()
+          .split(RegExp(r'\s+'))
+          .map((number) => int.parse(number))
+          .toList();
+    }).toList();
+  }
+
+  // Splits into list of doubles
+  List<List<double>> getPerLineAsDoubles() {
+    return _inputAsList.map((line) {
+      return line
+          .trim()
+          .split(RegExp(r'\s+'))
+          .map((number) => double.parse(number))
+          .toList();
+    }).toList();
+  }
 }
