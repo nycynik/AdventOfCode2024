@@ -14,13 +14,13 @@ import '../solutions/day02.dart';
 /// It will be evaluated against the `_exampleSolutionPart1` below.
 /// Make sure to respect the multiline string format to avoid additional
 /// newlines at the end.
-const _exampleInput1 = '''7 6 4 2 1
+const _exampleInput1 = '''
+7 6 4 2 1
 1 2 7 8 9
 9 7 6 2 1
 1 3 2 4 5
 8 6 4 4 1
-1 3 6 7 9
-''';
+1 3 6 7 9''';
 
 /// Paste in the small example that is given for the SECOND PART of the puzzle.
 /// It will be evaluated against the `_exampleSolutionPart2` below.
@@ -40,13 +40,13 @@ const _exampleSolutionPart2 = 0;
 /// This can only be filled out after you have solved the puzzle and is used
 /// for regression testing when refactoring.
 /// As long as the variable is `null`, the tests will be skipped.
-const _puzzleSolutionPart1 = null;
+const _puzzleSolutionPart1 = 321;
 
 /// The actual solution for the SECOND PART of the puzzle, based on your input.
 /// This can only be filled out after you have solved the puzzle and is used
 /// for regression testing when refactoring.
 /// As long as the variable is `null`, the tests will be skipped.
-const _puzzleSolutionPart2 = null;
+const _puzzleSolutionPart2 = 386;
 
 void main() {
   group(
