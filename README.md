@@ -1,8 +1,10 @@
 <img src="https://github.com/dart-lang.png" width="160" align="right" alt="Dart Logo">
 
-# AdventOfCode-Starter-Dart
+# AdventOfCode 2024
 
-This is a Starter project for [AdventOfCode](https://adventofcode.com/2024), written in `Dart`. Feel free to use it for your own adventures with the christmas-themed puzzles!
+This was started with [AdventOfCode](https://adventofcode.com/2024), and is written in `Dart`. 
+
+See code for solutions, and [Docs](/docs/index.md) for the problems.
 
 ## How to use
 
