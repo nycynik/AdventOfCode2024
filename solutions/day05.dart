@@ -166,6 +166,7 @@ class Day05 extends GenericDay {
     // to continue.
     var foundFix = false;
     do {
+      foundFix = false;
       // iterate over the entry, finding the first invalid entry
       for (var i = 0; i < update.length; i++) {
         final entry = update[i];
@@ -186,7 +187,7 @@ class Day05 extends GenericDay {
 
       iteration++;
       if (iteration > 100) {
-        print('iteration exceeded 100');
+        print('pre iteration exceeded 100');
         break;
       }
     } while (foundFix && !isValidEntry(update, pd));
@@ -195,6 +196,7 @@ class Day05 extends GenericDay {
     iteration = 0;
     foundFix = false; // we really don't need foundFix for this part
     do {
+      foundFix = false;
       // iterate over the entry, finding the first invalid entry
       for (var i = 0; i < update.length; i++) {
         final entry = update[i];
