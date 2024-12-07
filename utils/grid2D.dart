@@ -100,22 +100,28 @@ class Grid2D {
     return Grid2D.fromStrings(input.trim().split('\n'));
   }
 
+  // copy
+  Grid2D copy() {
+    // Create a new grid with copied rows
+    return Grid2D.fromString(toString());
+  }
+  
   // Basic operations
   String getAt(int row, int col) {
-    if (!_isInBounds(row, col)) return '';
+    if (!isInBounds(row, col)) return '';
     return _grid[row][col];
   }
 
   String getAtPoint(Point p) => getAt(p.row, p.col);
 
   void setAt(int row, int col, String value) {
-    if (!_isInBounds(row, col)) return;
+    if (!isInBounds(row, col)) return;
     _grid[row][col] = value;
   }
 
   void setAtPoint(Point p, String value) => setAt(p.row, p.col, value);
 
-  bool _isInBounds(int row, int col) {
+  bool isInBounds(int row, int col) {
     return row >= 0 && row < rows && col >= 0 && col < cols;
   }
 
@@ -144,7 +150,7 @@ class Grid2D {
     int col = startCol;
 
     for (int i = 0; i < target.length; i++) {
-      if (!_isInBounds(row, col) || _grid[row][col] != target[i]) {
+      if (!isInBounds(row, col) || _grid[row][col] != target[i]) {
         return false;
       }
       row += dir.rowDelta;
@@ -164,7 +170,7 @@ class Grid2D {
     for (var dir in directions) {
       int newRow = p.row + dir.rowDelta;
       int newCol = p.col + dir.colDelta;
-      if (_isInBounds(newRow, newCol)) {
+      if (isInBounds(newRow, newCol)) {
         neighbors.add(Point(newRow, newCol));
       }
     }
@@ -176,14 +182,54 @@ class Grid2D {
   Point? moveFrom(Point start, Direction direction) {
     final newPoint = start.move(direction);
     // Return null if the new point would be out of bounds
-    return _isInBounds(newPoint.row, newPoint.col) ? newPoint : null;
+    return isInBounds(newPoint.row, newPoint.col) ? newPoint : null;
   }
 
+  /* Print and display the grid ************************************/
   // Print the grid
   void printGrid() {
     for (var row in _grid) {
       print(row.join());
     }
+  }
+
+  String toStringWithCoordinates({
+    bool showTens = false,
+    String padding = ' ',
+    bool showRowNumbers = true,
+  }) {
+    final buffer = StringBuffer();
+
+    if (showTens && cols > 10) {
+      buffer.write('   ');
+      for (var col = 0; col < cols; col++) {
+        buffer.write(col ~/ 10 > 0 ? (col ~/ 10).toString() : padding);
+      }
+      buffer.writeln();
+    }
+
+    buffer.write('  ');
+    for (var col = 0; col < cols; col++) {
+      buffer.write(col % 10);
+    }
+    buffer.writeln();
+
+    for (var row = 0; row < rows; row++) {
+      if (showRowNumbers) {
+        if (row < 10) {
+          buffer.write('$row ');
+        } else {
+          buffer.write(row);
+        }
+      }
+
+      for (var col = 0; col < cols; col++) {
+        buffer.write(getAt(row, col));
+      }
+      buffer.writeln();
+    }
+
+    return buffer.toString();
   }
 
   // Convert grid to string

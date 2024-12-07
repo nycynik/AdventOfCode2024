@@ -7,3 +7,4 @@ linter:
   rules:
     flutter_style_todos: false
     avoid_print: false
+    sort_constructors_first: false
