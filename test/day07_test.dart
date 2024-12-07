@@ -15,18 +15,27 @@ import '../solutions/day07.dart';
 /// Make sure to respect the multiline string format to avoid additional
 /// newlines at the end.
 const _exampleInput1 = '''
+190: 10 19
+3267: 81 40 27
+83: 17 5
+156: 15 6
+7290: 6 8 6 15
+161011: 16 10 13
+192: 17 8 14
+21037: 9 7 18 13
+292: 11 6 16 20
 ''';
 
 /// Paste in the small example that is given for the SECOND PART of the puzzle.
 /// It will be evaluated against the `_exampleSolutionPart2` below.
 ///
 /// In case the second part uses the same example, uncomment below line instead:
-// const _exampleInput2 = _exampleInput1;
-const _exampleInput2 = '''
-''';
+const _exampleInput2 = _exampleInput1;
+// const _exampleInput2 = '''
+//''';
 
 /// The solution for the FIRST PART's example, which is given by the puzzle.
-const _exampleSolutionPart1 = 0;
+const _exampleSolutionPart1 = 3749;
 
 /// The solution for the SECOND PART's example, which is given by the puzzle.
 const _exampleSolutionPart2 = 0;

@@ -33,7 +33,7 @@ class Day06 extends GenericDay {
     // print(grid.toStringWithCoordinates());
 
     runRunRobot(grid, robot, blockAdded: true);
-    print(robot.getPathMap(withCoordinates: true));
+    //print(robot.getPathMap(withCoordinates: true)); uncomment this
 
     return robot.visitedPositions.length;
   }
@@ -60,7 +60,7 @@ class Day06 extends GenericDay {
     // print(grid.toStringWithCoordinates());
 
     var loopChances = runRunRobot(grid, robot);
-    print(robot.getPathMap(withCoordinates: true));
+    //print(robot.getPathMap(withCoordinates: true));
 
     return loopChances;
   }
