@@ -5,45 +5,8 @@ import 'point.dart';
  * 
  * A basic 2D grid class.
  * 
- * // Usage example:
- *
-// Create from multi-line string
-final gridString = '''
-ABC
-DEF
-GHI
-''';
-  var grid = Grid2D.fromString(gridString);
-  
-  // Create from list of strings
-  var grid2 = Grid2D.fromStrings(['ABC', 'DEF', 'GHI']);
-  
-  // Create empty grid
-  var grid3 = Grid2D(3, 3, fill: '.');
-  
-  // Basic operations
-  print(grid.getAt(0, 0));  // prints 'A'
-  grid.setAt(0, 0, 'X');
-  
-  // Using points
-  var point = Point(1, 1);
-  print(grid.getAtPoint(point));  // prints 'E'
-  
-  // Find string
-  var results = grid.findString('DEF');
-  for (var (start, dir) in results) {
-    print('Found at ${start} going ${dir}');
-  }
-  
-  // Get neighbors
-  var neighbors = grid.getNeighbors(Point(1, 1));
-  print('Neighbors of (1,1): $neighbors');
-  
-  // Print grid
-  print('\nGrid:');
-  grid.printGrid();
-}
  */
+
 // Define direction enum for searching
 enum Direction {
   up(-1, 0),
@@ -75,12 +38,14 @@ class Grid2D {
   late List<List<String>> _grid;
   final int rows;
   final int cols;
+  final Map<String, int> spaceTypes = {};
 
   Grid2D(this.rows, this.cols, {String fill = '.'}) {
     _grid = List.generate(
       rows,
       (i) => List.generate(cols, (j) => fill),
     );
+    spaceTypes[fill] = rows * cols;
   }
 
   // Create from list of strings
@@ -92,6 +57,13 @@ class Grid2D {
     // Validate all rows have same length
     if (!_grid.every((row) => row.length == cols)) {
       throw ArgumentError('All rows must have the same length');
+    }
+
+    // Count occurrences of each character
+    for (var row in _grid) {
+      for (var char in row) {
+        spaceTypes[char] = (spaceTypes[char] ?? 0) + 1;
+      }
     }
   }
 
@@ -105,7 +77,11 @@ class Grid2D {
     // Create a new grid with copied rows
     return Grid2D.fromString(toString());
   }
-  
+
+  // getters & setters
+  Set<String> get characters => spaceTypes.keys.toSet();
+  int getCharCount(String char) => spaceTypes[char] ?? 0;
+
   // Basic operations
   String getAt(int row, int col) {
     if (!isInBounds(row, col)) return '';
@@ -178,6 +154,20 @@ class Grid2D {
     return neighbors;
   }
 
+  List<Point> findInstances(String target) {
+    List<Point> results = [];
+
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
+        if (_grid[row][col] == target) {
+          results.add(Point(row, col));
+        }
+      }
+    }
+
+    return results;
+  }
+
   // Move around the grid
   Point? moveFrom(Point start, Direction direction) {
     final newPoint = start.move(direction);
@@ -185,10 +175,39 @@ class Grid2D {
     return isInBounds(newPoint.row, newPoint.col) ? newPoint : null;
   }
 
+  /* Distance between two points ***********************************/
+  // Check if the distance calculation is valid within grid bounds
+  bool canReach(Point from, Point to, {int maxDistance = 1}) {
+    if (!isValidPoint(from) || !isValidPoint(to)) return false;
+    return from.manhattanDistance(to) <= maxDistance;
+  }
+
+  // Get all points within a certain distance
+  List<Point> getPointsWithinDistance(Point center, int distance) {
+    final points = <Point>[];
+
+    for (var r = -distance; r <= distance; r++) {
+      for (var c = -distance; c <= distance; c++) {
+        final point = Point(center.row + r, center.col + c);
+        if (isValidPoint(point) &&
+            center.manhattanDistance(point) <= distance) {
+          points.add(point);
+        }
+      }
+    }
+
+    return points;
+  }
+
+  // Helper method to check if a point is within grid bounds
+  bool isValidPoint(Point p) {
+    return p.row >= 0 && p.row < rows && p.col >= 0 && p.col < cols;
+  }
+
   /* Print and display the grid ************************************/
   // Print the grid
   void printGrid() {
-    for (var row in _grid) {
+    for (final row in _grid) {
       print(row.join());
     }
   }

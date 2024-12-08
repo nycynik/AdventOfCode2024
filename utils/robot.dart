@@ -239,7 +239,7 @@ class Robot {
 
   Point getRelativePosition(Direction relativeDir) {
     // Calculate the absolute direction based on robot's facing and relative direction
-    Direction absoluteDir = switch (relativeDir) {
+    final absoluteDir = switch (relativeDir) {
       // Forward - same as current facing
       Direction.up => facing,
 
@@ -273,7 +273,9 @@ class Robot {
     };
 
     // Return the point one step in that direction
-    return position + absoluteDir;
+    return position.move(absoluteDir);
+    // return position + absoluteDir; was here, but was causing object issues,
+    // changed to move.
   }
 
   Point getAheadPosition() => getRelativePosition(Direction.up);
